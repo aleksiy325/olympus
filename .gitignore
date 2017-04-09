@@ -1,0 +1,11 @@
+#python
+*.pyc
+
+#webpack
+webpack-stats.json
+
+#npm
+node_modules
+
+#webpack bundles
+bundles 
