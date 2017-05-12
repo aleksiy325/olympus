@@ -24,3 +24,4 @@ services:
   db:
     image: postgres:latest
     container_name: ps02
+    

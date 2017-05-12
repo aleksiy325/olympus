@@ -35,44 +35,47 @@ module.exports = {
                 exclude: /node_modules/,
                 loader: 'babel-loader',
                 query: {
-                    presets: ['es2015', 'react']
+                    presets: ['react', "es2016", "stage-1"]
                 }
             },
             {
+                test: /\.css$/,
+                use: [ 'style-loader', 'css-loader' ]
+            },
+            {
                 test: /\.jpe?g$|\.gif$|\.png$/,
-                loader: 'file-loader?name=/images/[name].[ext]?[hash]'
+                loader: 'file-loader?name=images/[name].[ext]?[hash]'
             },
             {
                 test: /\.woff(\?.*)?$/,
-                loader: 'url-loader?name=/fonts/[name].[ext]&limit=10000&mimetype=application/font-woff'
+                loader: 'url-loader?name=fonts/[name].[ext]&limit=10000&mimetype=application/font-woff'
             }, 
             {
                 test: /\.woff2(\?.*)?$/,
-                loader: 'url-loader?name=/fonts/[name].[ext]&limit=10000&mimetype=application/font-woff2'
+                loader: 'url-loader?name=fonts[name].[ext]&limit=10000&mimetype=application/font-woff2'
             },
             {
                 test: /\.ttf(\?.*)?$/,
-                loader: 'url-loader?name=/fonts/[name].[ext]&limit=10000&mimetype=application/octet-stream'
+                loader: 'url-loader?name=fonts/[name].[ext]&limit=10000&mimetype=application/octet-stream'
             },
             {
                 test: /\.eot(\?.*)?$/,
-                loader: 'file-loader?name=/fonts/[name].[ext]'
+                loader: 'file-loader?name=fonts/[name].[ext]'
             },
             {
                 test: /\.otf(\?.*)?$/,
-                loader: 'file-loader?name=/fonts/[name].[ext]&mimetype=application/font-otf'
+                loader: 'file-loader?name=fonts/[name].[ext]&mimetype=application/font-otf'
             },
             {
                 test: /\.svg(\?.*)?$/,
-                loader: 'url-loader?name=/fonts/[name].[ext]&limit=10000&mimetype=image/svg+xml'
+                loader: 'url-loader?name=fonts/[name].[ext]&limit=10000&mimetype=image/svg+xml'
             },
             {
                 test: /\.json(\?.*)?$/,
-                loader: 'file-loader?name=/files/[name].[ext]'
+                loader: 'file-loader?name=files/[name].[ext]'
             }
         ]
     },
-
 
     resolve: {
         modules: ["node_modules"],

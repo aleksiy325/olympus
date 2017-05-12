@@ -20,5 +20,6 @@ from django.conf import settings
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^', include('frontend.urls')),
+    url(r'^api/', include('tournament.urls')), 
+    url(r'', include('frontend.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

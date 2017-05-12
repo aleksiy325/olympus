@@ -8,6 +8,11 @@ new WebpackDevServer(webpack(config), {
     inline: true,
     historyApiFallback: true,
     stats: { colors: true },
+    headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Methods": "GET",
+          "Access-Control-Allow-Headers": "X-Requested-With, content-type, Authorization"
+        },
 }).listen(3000, '0.0.0.0', function(err, result) {
     if (err) {
         console.log(err)
