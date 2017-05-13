@@ -5,15 +5,14 @@ import _ from 'lodash';
 
 const cookies = new Cookies();
 
-export default class SignupForm extends React.Component {
+export default class LoginForm extends React.Component {
     constructor(props) {
         super(props);
-        this.endpoint = window.location.origin + '/api/token/'
+        this.endpoint = window.location.origin + '/api/createuser/';
         this.state = {
             username: '',
             email: '',
             password: '',
-            confirm: '',
             message: '',
         };  
     }
@@ -34,7 +33,6 @@ export default class SignupForm extends React.Component {
                 password: this.state.password
             })
         });
-        
         let data = await response.json();
         this.setState({'message': data});
     }
