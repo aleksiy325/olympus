@@ -32,7 +32,7 @@ export default class SignupForm extends React.Component {
                 email: this.state.email,
                 password: this.state.password
             })
-        })
+        });
         let data = await response.json();
         this.setState({'message': data});
     }

@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'webpack_loader',
     'frontend',
     'tournament',
+    'rest_framework.authtoken',
 ]
 
 MIDDLEWARE = [
@@ -53,6 +54,12 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'olympus.urls'
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+    )
+}
 
 TEMPLATES = [
     {
