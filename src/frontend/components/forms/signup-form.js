@@ -1,14 +1,18 @@
 import React from 'react'
+import BaseForm from './base-form'
 import { Col, FormGroup, FormControl, ControlLabel, Button } from 'react-bootstrap';
-import { Cookies } from 'react-cookie';
+import TournamentAPI from '../rest/tournament-api'
 import _ from 'lodash';
 
-const cookies = new Cookies();
+const api = new TournamentAPI();
 
-export default class SignupForm extends React.Component {
+//TODO
+
+
+
+export default class SignupForm extends BaseForm {
     constructor(props) {
         super(props);
-        this.endpoint = window.location.origin + '/api/token/'
         this.state = {
             username: '',
             email: '',
@@ -19,24 +23,10 @@ export default class SignupForm extends React.Component {
     }
 
     submit = async (e) => {
-        e.preventDefault()
-        let response = await fetch(this.endpoint, {
-            method: 'POST',
-            headers: {
-               'Accept': 'application/json',
-               'Content-Type': 'application/json',
-               'X-CSRFToken': cookies.get('csrftoken'),
-             },
-            credentials: "same-origin",
-            body: JSON.stringify({
-                username: this.state.username,
-                email: this.state.email,
-                password: this.state.password
-            })
-        });
-        
-        let data = await response.json();
-        this.setState({'message': data});
+        e.preventDefault();
+        let data = await api.createUser(this.username, this.email, this.password);
+        console.log(data);
+        // this.setState({'message': data});
     }
 
     handleChange = (e) => {

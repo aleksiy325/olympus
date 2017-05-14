@@ -1,70 +1,57 @@
 import React from 'react'
+import BaseForm from './base-form'
 import { Col, FormGroup, FormControl, ControlLabel, Button } from 'react-bootstrap';
+import TournamentAPI from '../rest/tournament-api'
 import { Cookies } from 'react-cookie';
 import _ from 'lodash';
 
 const cookies = new Cookies();
+const api = new TournamentAPI();
+const sessionStorage = window.sessionStorage
 
-export default class LoginForm extends React.Component {
+const fields = ['username', 'password', 'non_field_errors']
+
+export default class LoginForm extends BaseForm {
     constructor(props) {
-        super(props);
-        this.endpoint = window.location.origin + '/api/createuser/';
-        this.state = {
-            username: '',
-            email: '',
-            password: '',
-            message: '',
-        };  
+        super(props, fields);
+        this.initializeStateFields(fields);
     }
 
     submit = async (e) => {
         e.preventDefault()
-        let response = await fetch(this.endpoint, {
-            method: 'POST',
-            headers: {
-               'Accept': 'application/json',
-               'Content-Type': 'application/json',
-               'X-CSRFToken': cookies.get('csrftoken'),
-             },
-            credentials: "same-origin",
-            body: JSON.stringify({
-                username: this.state.username,
-                email: this.state.email,
-                password: this.state.password
-            })
-        });
-        let data = await response.json();
-        this.setState({'message': data});
-    }
+        try{
+            let response = await api.getToken(this.state.fields.username.value, this.state.fields.password.value);
+            let data = await response.json()
 
-    handleChange = (e) => {
-        this.setState({[e.target.name]: e.target.value});
-    }
+            if(response.ok){
+                sessionStorage.setItem('token', data.token);
+                //TODO: redirect
 
+            }else{
+                this.updateStateFields(data);
+            }
+
+        }catch(err){
+            console.log(err);
+        }
+    }
 
     render() {
         return(
             <form onSubmit={this.submit}>
                 <Col xs={6} md={4}>
-                    <FormGroup validationState={this.valid} >
-                        <FormControl type="text" value={this.state.username} placeholder="Username" onChange={this.handleChange} name="username"/>
+                    <FormGroup validationState={this.state.fields.username.validationState} >
+                        <ControlLabel>{this.state.fields.username.message}</ControlLabel>
+                        <FormControl type="text" value={this.state.fields.username.value} placeholder="Username" onChange={this.handleChange} name="username"/>
                         <FormControl.Feedback />
                     </FormGroup>
-                    <FormGroup validationState={this.valid} >
-                        <FormControl type="text" value={this.state.email} placeholder="Email" onChange={this.handleChange} name="email"/>
+                    <FormGroup validationState={this.state.fields.password.validationState} >
+                        <ControlLabel>{this.state.fields.password.message}</ControlLabel>
+                        <FormControl type="password" value={this.state.fields.password.value} placeholder="Password" onChange={this.handleChange} name="password"/>
                         <FormControl.Feedback />
                     </FormGroup>
-                    <FormGroup validationState={this.valid} >
-                        <FormControl type="password" value={this.state.password} placeholder="Password" onChange={this.handleChange} name="password"/>
-                        <FormControl.Feedback />
-                    </FormGroup>
-                    <FormGroup validationState={this.valid} >
-                        <FormControl type="password" value={this.state.confirm} placeholder="Confirm Password" onChange={this.handleChange} name="confirm"/>
-                        <FormControl.Feedback />
-
-                    </FormGroup>
-                    <Button bsStyle="primary" block type="submit">Submit</Button>
-                    <ControlLabel>{this.state.message}</ControlLabel>
+                    <Button bsStyle="primary" block type="submit">Login</Button>
+                    <ControlLabel>{this.state.fields.non_field_errors.message}</ControlLabel>
                 </Col>
             </form>
         )
