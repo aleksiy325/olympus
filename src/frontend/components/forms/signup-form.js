@@ -1,65 +1,66 @@
-import React from 'react'
-import BaseForm from './base-form'
+import React from 'react';
+import BaseForm from './base-form';
 import { Col, FormGroup, FormControl, ControlLabel, Button } from 'react-bootstrap';
-import TournamentAPI from '../rest/tournament-api'
-import _ from 'lodash';
+import TournamentAPI from '../rest/tournament-api';
 
 const api = new TournamentAPI();
-
-//TODO
-
-
+const sessionStorage = window.sessionStorage;
+const fields = ['username', 'email', 'password', 'confirm', 'non_field_errors'];
 
 export default class SignupForm extends BaseForm {
     constructor(props) {
-        super(props);
-        this.state = {
-            username: '',
-            email: '',
-            password: '',
-            confirm: '',
-            message: '',
-        };  
+        super(props, fields);
+        this.initializeStateFields(fields);
     }
 
     submit = async (e) => {
         e.preventDefault();
-        let data = await api.createUser(this.username, this.email, this.password);
-        console.log(data);
-        // this.setState({'message': data});
-    }
+        try{
+            let response = await api.createUser(this.state.fields.username.value, this.state.fields.email.value, this.state.fields.password.value);
+            let data = await response.json();
 
-    handleChange = (e) => {
-        this.setState({[e.target.name]: e.target.value});
-    }
+            if(response.ok){
+                sessionStorage.setItem('token', data.token);
+                //TODO: redirect
 
+            }else{
+                this.updateStateFields(data);
+            }
+
+        }catch(err){
+            console.log(err);
+            //TODO: non_field_error
+        }
+    }
 
     render() {
         return(
             <form onSubmit={this.submit}>
                 <Col xs={6} md={4}>
-                    <FormGroup validationState={this.valid} >
-                        <FormControl type="text" value={this.state.username} placeholder="Username" onChange={this.handleChange} name="username"/>
+                    <FormGroup validationState={this.state.fields.username.validationState} >
+                        <ControlLabel>{this.state.fields.username.message}</ControlLabel>
+                        <FormControl type="text" value={this.state.fields.username.value} placeholder="Username" onChange={this.handleChange} name="username"/>
                         <FormControl.Feedback />
                     </FormGroup>
-                    <FormGroup validationState={this.valid} >
-                        <FormControl type="text" value={this.state.email} placeholder="Email" onChange={this.handleChange} name="email"/>
+                    <FormGroup validationState={this.state.fields.email.validationState} >
+                        <ControlLabel>{this.state.fields.email.message}</ControlLabel>
+                        <FormControl type="text" value={this.state.fields.email.value} placeholder="Email" onChange={this.handleChange} name="email"/>
                         <FormControl.Feedback />
                     </FormGroup>
-                    <FormGroup validationState={this.valid} >
-                        <FormControl type="password" value={this.state.password} placeholder="Password" onChange={this.handleChange} name="password"/>
+                    <FormGroup validationState={this.state.fields.password.validationState} >
+                        <ControlLabel>{this.state.fields.password.message}</ControlLabel>
+                        <FormControl type="password" value={this.state.fields.password.value} placeholder="Password" onChange={this.handleChange} name="password"/>
                         <FormControl.Feedback />
                     </FormGroup>
-                    <FormGroup validationState={this.valid} >
-                        <FormControl type="password" value={this.state.confirm} placeholder="Confirm Password" onChange={this.handleChange} name="confirm"/>
+                    <FormGroup validationState={this.state.fields.password.validationState} >
+                        <ControlLabel>{this.state.fields.confirm.message}</ControlLabel>
+                        <FormControl type="password" value={this.state.fields.confirm.value} placeholder="Confirm Password" onChange={this.handleChange} name="confirm"/>
                         <FormControl.Feedback />
-
                     </FormGroup>
                     <Button bsStyle="primary" block type="submit">Submit</Button>
-                    <ControlLabel>{this.state.message}</ControlLabel>
                 </Col>
             </form>
-        )
+        );
     } 
 
-};
+}

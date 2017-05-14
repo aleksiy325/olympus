@@ -1,10 +1,10 @@
-import React from 'react'
-import _ from 'lodash'
+import React from 'react';
+import _ from 'lodash';
 
 export default class BaseForm extends React.Component {
-     constructor(props) {
+    constructor(props) {
         super(props);
-     }
+    }
     
     initializeStateFields = (formFields) => {
         let fields = {};
@@ -13,11 +13,10 @@ export default class BaseForm extends React.Component {
                 value: '',
                 message: '',
                 validationState: null
-            }
+            };
         });
         this.state = _.assign({fields}, this.state);
     }
-
 
     updateStateFields = (data) => {
         let fields = this.state.fields;
@@ -33,7 +32,7 @@ export default class BaseForm extends React.Component {
 
     handleChange = (e) => {
         let fields = this.state.fields;
-        fields[e.target.name].value = e.target.value
+        fields[e.target.name].value = e.target.value;
         this.setState({fields});
     }
 }

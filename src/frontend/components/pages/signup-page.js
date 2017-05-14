@@ -6,5 +6,5 @@ export default class SignupPage extends React.Component {
         return (
             <SignupForm/>
         );
- 	}
+    }
 }

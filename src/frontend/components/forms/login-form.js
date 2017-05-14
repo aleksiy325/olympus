@@ -1,15 +1,11 @@
-import React from 'react'
-import BaseForm from './base-form'
+import React from 'react';
+import BaseForm from './base-form';
 import { Col, FormGroup, FormControl, ControlLabel, Button } from 'react-bootstrap';
-import TournamentAPI from '../rest/tournament-api'
-import { Cookies } from 'react-cookie';
-import _ from 'lodash';
+import TournamentAPI from '../rest/tournament-api';
 
-const cookies = new Cookies();
 const api = new TournamentAPI();
-const sessionStorage = window.sessionStorage
-
-const fields = ['username', 'password', 'non_field_errors']
+const sessionStorage = window.sessionStorage;
+const fields = ['username', 'password', 'non_field_errors'];
 
 export default class LoginForm extends BaseForm {
     constructor(props) {
@@ -17,11 +13,12 @@ export default class LoginForm extends BaseForm {
         this.initializeStateFields(fields);
     }
 
+
     submit = async (e) => {
-        e.preventDefault()
+        e.preventDefault();
         try{
             let response = await api.getToken(this.state.fields.username.value, this.state.fields.password.value);
-            let data = await response.json()
+            let data = await response.json();
 
             if(response.ok){
                 sessionStorage.setItem('token', data.token);
@@ -54,7 +51,7 @@ export default class LoginForm extends BaseForm {
                     <ControlLabel>{this.state.fields.non_field_errors.message}</ControlLabel>
                 </Col>
             </form>
-        )
+        );
     } 
 
-};
+}
