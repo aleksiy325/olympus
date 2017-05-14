@@ -1,8 +1,5 @@
 version: 0.2
-
-env:
-  variables:
-            
+  
 phases:
   install:
     commands:
@@ -10,11 +7,3 @@ phases:
   pre_build:
     commands:
       - ./node_modules/.bin/eslint .
-
-  build:
-    commands:
-
-  post_build:
-    commands:
-
-artifacts:
