@@ -13,7 +13,7 @@ services:
   web:
     build: .
     container_name: dg02
-    command: bash -c "python manage.py makemigrations && python manage.py migrate && gunicorn olympus.wsgi -b 0.0.0.0:8000 --reload"
+    command: bash -c "python manage.py makemigrations && python manage.py migrate && gunicorn olympus.wsgi -b 0.0.0.0:8000 --reload && nodejs server.js"
     depends_on:
       - db
     volumes:
