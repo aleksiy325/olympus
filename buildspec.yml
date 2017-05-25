@@ -8,3 +8,8 @@ phases:
   pre_build:
     commands:
       - docker-compose --version
+      
+  build:
+    commands:
+      - docker build
+      - docker-compose up
