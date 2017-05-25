@@ -7,10 +7,12 @@ phases:
       - sudo apt-get update
       - sudo apt-get install -y nodejs 
       - sudo apt-get install -y npm
-      
+      - npm install 
+
   pre_build:
     commands:
-      - docker-compose --version
+      - pwd
+      - ./node_modules/.bin/eslint .
       
   build:
     commands:
