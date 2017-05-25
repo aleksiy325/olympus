@@ -13,6 +13,8 @@ phases:
   pre_build:
     commands:
       - pwd
+      - node --version
+      - nodejs --version
       - ./node_modules/.bin/eslint .
       
   build:
