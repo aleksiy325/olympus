@@ -13,7 +13,7 @@ export default class TournamentAPI{
     }
 
 
-  async createGroup(name, priv){
+    async createGroup(name, priv){
         let url =  window.location.origin + '/api/group/create/';
         let token = localStorage.getItem('token');
         this.defaultHeaders.Authorization = "Token " + token;

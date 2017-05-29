@@ -5,7 +5,7 @@ import LoginPage from './pages/login-page';
 import SignupPage from './pages/signup-page';
 import ProfilePage from './pages/profile-page';
 import GroupPage from './pages/group-page';
-import DefNavbar from './navbar'
+import DefNavbar from './navbar';
 import Auth from './auth';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import { Col } from 'react-bootstrap';

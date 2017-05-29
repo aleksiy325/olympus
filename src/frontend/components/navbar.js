@@ -1,8 +1,5 @@
 import React from 'react';
-import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
-import TournamentAPI from './rest/tournament-api';
-
-const api = new TournamentAPI();
+import { Navbar, Nav, NavItem} from 'react-bootstrap';
 
 export default class DefNavbar extends React.Component {
     constructor(props) {

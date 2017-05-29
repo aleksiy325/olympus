@@ -1,6 +1,6 @@
 import React from 'react';
 import BaseForm from './base-form';
-import { Col, FormGroup, FormControl, ControlLabel, Button, Checkbox } from 'react-bootstrap';
+import { Col, FormGroup, FormControl, ControlLabel, Button } from 'react-bootstrap';
 import TournamentAPI from '../rest/tournament-api';
 
 const api = new TournamentAPI();
