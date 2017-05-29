@@ -4,7 +4,7 @@ import { Col, FormGroup, FormControl, ControlLabel, Button } from 'react-bootstr
 import TournamentAPI from '../rest/tournament-api';
 
 const api = new TournamentAPI();
-const sessionStorage = window.sessionStorage;
+const localStorage = window.localStorage;
 const fields = ['username', 'password', 'non_field_errors'];
 
 export default class LoginForm extends BaseForm {
@@ -21,7 +21,7 @@ export default class LoginForm extends BaseForm {
             let data = await response.json();
 
             if(response.ok){
-                sessionStorage.setItem('token', data.token);
+                localStorage.setItem('token', data.token);
                 //TODO: redirect
 
             }else{
