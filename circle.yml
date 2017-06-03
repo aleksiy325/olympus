@@ -17,5 +17,6 @@ dependencies:
 
 test:
   override:
+    - ./node_modules/.bin/eslint .
     -  docker-compose up -d
 
