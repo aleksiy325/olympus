@@ -23,8 +23,8 @@ class GroupManager(models.Manager):
 class Group(models.Model):
     objects = GroupManager()
     name = models.CharField(max_length=60)
-    members = models.ManyToManyField(User)
-    owner = models.ForeignKey(User)
-    admins = models.ManyToManyField(User)
+    members = models.ManyToManyField(User, related_name='member_of')
+    owner = models.ForeignKey(User, related_name='owner_of', null=True)
+    admins = models.ManyToManyField(User, related_name='admin_of')
     private = models.BooleanField(default=True)
 
