@@ -1,0 +1,7 @@
+exclude =
+    .git,
+    __pycache__,
+    node_modules,
+    manage.py
+max-line-length = 180
+max-complexity = 10

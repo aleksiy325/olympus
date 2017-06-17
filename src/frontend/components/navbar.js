@@ -1,9 +1,18 @@
 import React from 'react';
 import { Navbar, Nav, NavItem} from 'react-bootstrap';
+import Auth from './auth';
+
+const auth = new Auth();
 
 export default class DefNavbar extends React.Component {
     constructor(props) {
         super(props);
+    }
+
+    logoutButton = () => {
+        if(auth.isAuthenticated()){
+             return <NavItem onClick={ auth.logout() }>Logout</NavItem>
+        }
     }
 
     render() {
@@ -15,7 +24,8 @@ export default class DefNavbar extends React.Component {
                     </Navbar.Brand>
                 </Navbar.Header>
                 <Nav pullRight>
-                    <NavItem eventKey={2} href="/login">Login</NavItem>
+                    <NavItem href="/login">Login</NavItem>
+                    { this.logoutButton() }
                 </Nav>
             </Navbar>
            
@@ -23,3 +33,4 @@ export default class DefNavbar extends React.Component {
     } 
 
 }
+

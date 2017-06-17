@@ -1,13 +1,13 @@
-const sessionStorage = window.sessionStorage;
+const localStorage = window.localStorage;
 
 export default class Auth {
     constructor(){}
 
     isAuthenticated(){
-        return !! sessionStorage.getItem('token');
+        return !! localStorage.getItem('token');
     }
 
     logout(){
-        sessionStorage.removeItem('token');
+        localStorage.removeItem('token');
     }
 }
